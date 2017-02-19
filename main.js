@@ -25,11 +25,11 @@ var path = require('path');
 var app = express();
 
 //app.use(bodyParser());
-app.use(express.static(__dirname + '/../htmldocs'));
-app.use(express.static(__dirname + '/../resources'));
-//app.use(express.static(__dirname + '/../resources/bootstrap-3.3.7'));
-app.use(express.static(__dirname + '/../resources/images'));
-//app.use(express.static(__dirname + '/../references'));
+app.use(express.static(__dirname + '/htmldocs'));
+app.use(express.static(__dirname + '/resources'));
+//app.use(express.static(__dirname + '/resources/bootstrap-3.3.7'));
+app.use(express.static(__dirname + '/resources/images'));
+//app.use(express.static(__dirname + '/references'));
 
 //assuming app is express Object.
 app.get('/',function(req,res){
@@ -41,5 +41,5 @@ app.get('/',function(req,res){
 app.listen(8081);
 
 // Console will print the message
-//console.log(path.join(__dirname+'/../htmldocs/index.html'));
+//console.log(path.join(__dirname+'/htmldocs/index.html'));
 console.log('Server running at http://127.0.0.1:8081/');
