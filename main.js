@@ -38,7 +38,7 @@ app.get('/',function(req,res){
 	});
 });
 
-app.listen(8081);
+app.listen(process.env.PORT);
 
 // Console will print the message
 //console.log(path.join(__dirname+'/htmldocs/index.html'));
