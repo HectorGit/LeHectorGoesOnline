@@ -27,7 +27,7 @@ var app = express();
 //app.use(bodyParser());
 app.use(express.static(__dirname + '/htmldocs'));
 app.use(express.static(__dirname + '/resources'));
-//app.use(express.static(__dirname + '/resources/bootstrap-3.3.7'));
+app.use(express.static(__dirname + '/resources/bootstrap-3.3.7'));
 app.use(express.static(__dirname + '/resources/images'));
 //app.use(express.static(__dirname + '/references'));
 
