@@ -22,12 +22,15 @@ var path = require('path');
 //var bodyParser = require ('body-parser');
 
 //var bootstrap = require("bootstrap");
+//var jQuery = require("jQuery");
 var app = express();
+
+var port = process.env.PORT || 8081;
 
 //app.use(bodyParser());
 app.use(express.static(__dirname + '/htmldocs'));
 app.use(express.static(__dirname + '/resources'));
-app.use(express.static(__dirname + '/resources/bootstrap-3.3.7'));
+//app.use(express.static(__dirname + '/resources/bootstrap-3.3.7'));
 app.use(express.static(__dirname + '/resources/images'));
 //app.use(express.static(__dirname + '/references'));
 
@@ -38,7 +41,7 @@ app.get('/',function(req,res){
 	});
 });
 
-app.listen(process.env.PORT);
+app.listen(port);
 
 // Console will print the message
 //console.log(path.join(__dirname+'/htmldocs/index.html'));
