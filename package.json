@@ -11,6 +11,7 @@
     "url": "https://github.com/HectorGit/LeHectorGoesOnline"
   },
   "dependencies": {
+    "body-parser": "^1.17.1",
     "express": "^4.14.1",
     "http": "0.0.0",
     "jQuery": "^1.7.4",
