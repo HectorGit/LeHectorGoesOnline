@@ -1,48 +1,95 @@
-
-/*var http = require('http');  
-http.createServer(function(req, res) {  
-  res.writeHead(200, {
-    'Content-Type': 'text/html'
-  });
-  res.write('<!doctype html>\n<html lang="en">\n' + 
-    '\n<meta charset="utf-8">\n<title>Test web page on node.js</title>\n' + 
-    '<style type="text/css">* {font-family:arial, sans-serif;}</style>\n' + 
-    '\n\n<h1>Euro 2012 teams</h1>\n' + 
-    '<div id="content"><p>The teams in Group D for Euro 2012 are:</p><ul><li>England</li><li>France</li><li>Sweden</li><li>Ukraine</li></ul></div>' + 
-    '\n\n');
-  res.end();
-}).listen(8081, '127.0.0.1');
-console.log('Server running at http://127.0.0.1:8081');
-
-*/
-
-var http = require("http");
 var express = require("express");
-var path = require('path');
-//var bodyParser = require ('body-parser');
-
-//var bootstrap = require("bootstrap");
-//var jQuery = require("jQuery");
 var app = express();
-
+var path = require('path');
+var bodyParser = require('body-parser');
+var morgan = require('morgan');
 var port = process.env.PORT || 8081;
+var http = require("http");
 
-//app.use(bodyParser());
-app.use(express.static(__dirname + '/htmldocs'));
-app.use(express.static(__dirname + '/resources'));
-//app.use(express.static(__dirname + '/resources/bootstrap-3.3.7'));
-app.use(express.static(__dirname + '/resources/images'));
-//app.use(express.static(__dirname + '/references'));
+var basicRouter = express.Router();
 
-//assuming app is express Object.
-app.get('/',function(req,res){
-	res.sendFile('index.html', {
-		title:'Home'
-	});
+basicRouter.use(express.static(__dirname + '/htmldocs'));
+basicRouter.use(express.static(__dirname + '/resources'));
+basicRouter.use(express.static(__dirname + '/resources/images'));
+
+// APP CONFIGURATION ---------------------
+// use body parser so we can grab information from POST requests
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+// configure our app to handle CORS requests
+app.use(function(req, res, next) {
+	res.setHeader('Access-Control-Allow-Origin', '*');
+	res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
+	res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, \Authorization');
+	next();
 });
 
+// log all requests to the console
+app.use(morgan('dev'));
+
+//MIDDLEWARE - (prerequest operations)
+basicRouter.param('name', function(req, res, next, name) {
+// do validation on name here
+// blah blah validation
+// log something so we know its working
+console.log('doing name validations on ' + name);
+// once validation is done save the new item in the req
+req.name = name;
+// go to the next thing
+next();
+});
+
+//app.controller('contactCtrl', function($scope, $http) {
+//   $scope.sub = function() {
+//       $http.post('/contact',$scope.formData).
+//       success(function(data) {
+//           console.log("posted successfully");
+//       }).error(function(data) {
+//           console.error("error in posting");
+//       })
+//   }
+//});
+
+//NORMAL ROUTES/ REQUESTS
+
+//assuming app is express Object.
+basicRouter.get('/',function(req,res){
+	res.sendFile(path.join(__dirname + '/htmldocs/index.html'));
+	//res.json({message:'what is going on?'});
+});
+
+basicRouter.get('/recent_projects', function(req,res){
+	res.sendFile(path.join(__dirname + '/htmldocs/recent_projects.html'));
+	//res.json({ message: 'hooray! welcome to our api!' });
+});
+
+basicRouter.get('/contact', function(req,res){
+	res.sendFile(path.join(__dirname + '/htmldocs/contact.html'));
+});
+
+//basicRouter.post('/contact', function(req,res){
+//    console.log('name:'+ req.body.name);
+//	res.json({name:req.body.name});
+//});
+
+basicRouter.get('/bio', function(req,res){
+	res.sendFile(path.join(__dirname + '/htmldocs/bio.html'));
+});
+
+basicRouter.get('/releases', function(req,res){
+	res.sendFile(path.join(__dirname + '/htmldocs/releases.html'));
+});
+
+basicRouter.get('/rec_experience', function(req,res){
+	res.sendFile(path.join(__dirname + '/htmldocs/rec_experience.html'));
+});
+
+basicRouter.get('/users/:name', function(req, res) {
+  res.send('hello ' + req.params.name + '!');
+});
+
+//APPLYING THE ROUTES TO OUR APP
+app.use('/',basicRouter);
 app.listen(port);
 
-// Console will print the message
-//console.log(path.join(__dirname+'/htmldocs/index.html'));
-console.log('Server running at http://127.0.0.1:8081/');
+console.log('Magic happens on port ' + port);
