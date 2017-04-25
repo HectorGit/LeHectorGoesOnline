@@ -35,7 +35,13 @@ angular.module('routerApp', ['routerRoutes', 'ngAnimate'])
 // contact page specific controller
 .controller('contactController', function() {
 	var vm = this;// define variables and objects on this
+	vm.message = 'Message Sent !';
+	vm.booleanVal = false;
+	vm.messageSent = function(){
+		vm.booleanVal = true;
+	};
 
+	/*
 	vm.messages = [
 	{ name: 'Manuela', telephone : '1-234-567', email: 'manuela@a.com', message: 'Hi Hector' },
 	{ name: 'Victor', telephone : '1-234-567', email: 'victor@b.com', message: 'Hi Hector' },
@@ -55,5 +61,6 @@ angular.module('routerApp', ['routerRoutes', 'ngAnimate'])
 		// after our computer has been added, clear the form
 		vm.contactData = {};
 	};
+	*/
 	
 });
