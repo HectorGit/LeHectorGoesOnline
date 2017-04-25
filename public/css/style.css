@@ -5,12 +5,12 @@ body { padding-top:50px; }
 .ng-enter, .ng-leave { width:100%; position:absolute; }
 
 .ng-enter {
-	-webkit-animation:slideInLeft 1.2s both ease-in;
-	-moz-animation:slideInLeft 1.2s both ease-in;
-	animation:slideInLeft 1.2s both ease-in;
+	-webkit-animation:slideInLeft 0.5s;
+	-moz-animation:slideInLeft 0.5s;
+	animation:slideInLeft 0.5s;
 }
 .ng-leave {
-	-webkit-animation:slideOutRight 0.5s both ease-in;
-	-moz-animation:slideOutRight 0.5s both ease-in;
-	animation:slideOutRight 0.5s both ease-in;
+	-webkit-animation:slideOutRight 0.2s;
+	-moz-animation:slideOutRight 0.2s;
+	animation:slideOutRight 0.2s;
 }
