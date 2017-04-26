@@ -28,9 +28,9 @@
 				<textarea name = "message" class="form-control" rows="8" placeholder="Your message goes here!" required></textarea> <!-- ng-model="contact.contactData.message" -->
 			</div>
 			<button type="submit" class="btn btn-default">Submit</button>
+			<div ng-show="contact.booleanVal" class="ng-hide"> {{ contact.message }}</div>
 		</form>
 		
-		<div ng-show="contact.booleanVal" class="ng-hide"> {{ contact.message }}</div>
 		
 	 </div>
 	 
