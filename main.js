@@ -1,5 +1,6 @@
 var express = require("express");
 var nodemailer = require("nodemailer");
+var smtpTransport = require('nodemailer-smtp-transport');
 var app = express();
 var path = require('path');
 var bodyParser = require('body-parser');
@@ -30,13 +31,13 @@ app.use(morgan('dev'));
 //----NEW----
 basicRouter.post('/contact', function(req,res){
 
-	var transporter = nodemailer.createTransport({
+	var transporter = nodemailer.createTransport(smtpTransport({
 		service: 'Gmail',
 		auth: {
 			user: 'iwantaroom123@gmail.com',
 			pass: 'Nomeacuerdo1'
 		}
-	});
+	}));
 	
 	var mailOptions  = {
 		from: 'iwantaroom123@gmail.com',
