@@ -10,6 +10,10 @@ var http = require("http");
 
 var basicRouter = express.Router();
 
+const crypt = require('./encrypt.js');
+const encUser = '1666b7c32ae79160cfff9a3411b0b84b5020c9e7e914cd';//= process.env.encUser;
+const encPassword ='1670bbca2ce98c7b91a098';//= process.env.encPassword;
+
 basicRouter.use(express.static(__dirname + '/public'));
 basicRouter.use(express.static(__dirname + '/public/resources/images'));
 basicRouter.use(express.static(__dirname + '/public/views/pages'));
@@ -34,14 +38,14 @@ basicRouter.post('/contact', function(req,res){
 	var transporter = nodemailer.createTransport(smtpTransport({
 		service: 'Gmail',
 		auth: {
-			user: 'iwantaroom123@gmail.com',
-			pass: 'Nomeacuerdo1'
-		}
+			user: crypt.decrypt(encUser),
+			pass: crypt.decrypt(encPassword),
+		}, 
 	}));
 	
 	var mailOptions  = {
-		from: 'iwantaroom123@gmail.com',
-		to : 'iwantaroom123@gmail.com,' + req.body.email,
+		from: crypt.decrypt(encUser),
+		to : crypt.decrypt(encUser), 
 		subject : 'Message Confirmation: Message from: ' + req.body.name,
 		text : 'Message: \n\n' + req.body.message + '\n\n' + '-------- CONTACT INFO ---------  \n\n'+'Telephone: '+ req.body.telephone + '\n\n' + 'E-mail: '+ req.body.email
 		//html: <b>Hello World<\b>
